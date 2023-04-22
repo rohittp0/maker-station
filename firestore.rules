@@ -1,0 +1,36 @@
+rules_version = '2';
+service cloud.firestore {
+	function checkGender(gender)
+  {
+  	return gender == "male" || gender == "female" || gender == "other";
+  }
+
+  function checkYear(year)
+  {
+  	return year > 2021 && year < 2029;
+  }
+
+	function validUserData(uid, token, data)
+  {
+  	return uid == data.uid && checkGender(data.gender) &&
+    	data.email == token.email &&
+      (!("phone_number" in token) || data.phno == token.phone_number || token.phone_number == "" || token.phone_number == null)  &&
+    	 checkYear(data.graduation_year) && data.venue != null && data.venue != "";
+  }
+
+  match /databases/{database}/documents {
+    match /{document=**} {
+
+      match /users/{user}{
+      	allow read: if request.auth.uid == user;
+        allow write: if request.auth.uid == user &&
+        	validUserData(request.auth.uid, request.auth.token, request.resource.data);
+
+      	match /stalls/{id} {
+        	allow read: if request.auth.uid == user;
+          allow write: if request.auth.token.mentor;
+        }
+      }
+    }
+  }
+}
