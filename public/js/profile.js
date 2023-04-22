@@ -1,9 +1,12 @@
 const auth = firebase.auth();
+const db = firebase.firestore();
 
 const phoneTextBox = document.getElementById("phone");
 const genderTextBox = document.getElementById("gender");
 const graduationYearTextBox = document.getElementById("graduationYear");
 const venueTextBox = document.getElementById("venue");
+
+const submit = document.getElementById("submit");
 
 let data = {};
 
@@ -23,10 +26,10 @@ function updateFields(){
 
     console.log(data);
 
-    phoneTextBox.value = phno;
-    genderTextBox.value = gender;
+    phoneTextBox.value = phno || "";
+    genderTextBox.value = gender || "";
     graduationYearTextBox.value = graduation_year;
-    venueTextBox.value = venue;
+    venueTextBox.value = venue || "";
 
 }
 
@@ -34,7 +37,6 @@ function updateFields(){
 async function getProfile() {
     const uid = (await user).uid;
 
-    const db = firebase.firestore();
     const docRef = db.collection("users").doc(uid);
     const doc = await docRef.get().catch(console.error);
 
@@ -57,5 +59,32 @@ async function getProfile() {
     updateFields();
 }
 
+async function saveProfile() {
+    submit.disabled = true;
+
+    const uid = (await user).uid;
+    const docRef = db.collection("users").doc(uid);
+
+    data.phno = phoneTextBox.value;
+    data.gender = genderTextBox.value;
+    data.graduation_year = parseInt(graduationYearTextBox.value);
+    data.venue = venueTextBox.value;
+
+    const u = await user;
+
+    console.log(data, u);
+
+    docRef.set(data)
+        .then(() => window.location.href = "/flow")
+        .catch((error) => {
+            window.alert("Error saving details");
+            console.error("Error writing document: ", error);
+            submit.disabled = false;
+        });
+}
+
 
 getProfile().catch(console.error);
+
+
+submit.addEventListener("click", saveProfile);
