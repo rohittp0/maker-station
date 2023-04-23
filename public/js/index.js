@@ -1,4 +1,6 @@
 const auth = firebase.auth();
+const db = firebase.firestore();
+
 const provider = new firebase.auth.GoogleAuthProvider();
 
 auth.onAuthStateChanged((user) => {
@@ -9,10 +11,15 @@ auth.onAuthStateChanged((user) => {
 provider.addScope("https://www.googleapis.com/auth/user.gender.read");
 provider.addScope("https://www.googleapis.com/auth/user.phonenumbers.read");
 
+
 function signIn() {
     auth.signInWithPopup(provider)
         .then(async (result) => {
-            await getPeopleData(result.credential.accessToken);
+
+            const user = result.user;
+            checkMentor(user.uid).then(r => r && (window.location.href = "/mentor"));
+
+            await getPeopleData(result.credential.accessToken).catch((e) => console.error(e));
             window.location.href = "/profile";
         })
         .catch((error) => {

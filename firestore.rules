@@ -18,6 +18,11 @@ service cloud.firestore {
     	 checkYear(data.graduation_year) && data.venue != null && data.venue != "";
   }
 
+  function editingOnlyAllowedFields(allowedFields) {
+      let editedKeys = request.resource.data.diff(resource.data).affectedKeys();
+      return editedKeys.hasOnly(allowedFields);
+  }
+
   match /databases/{database}/documents {
     match /{document=**} {
 
@@ -30,6 +35,16 @@ service cloud.firestore {
         	allow read: if request.auth.uid == user;
           allow write: if request.auth.token.mentor;
         }
+      }
+
+      match /mentors/{mentor} {
+      	allow read: if request.auth.uid == mentor;
+      	allow update: if request.auth.uid == mentor && editingOnlyAllowedFields(["stall"]);
+      }
+
+      match /stalls/{stall} {
+      	allow read: if request.auth.token.mentor;
+        allow write: if request.auth.token.mentor;
       }
     }
   }
