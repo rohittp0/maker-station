@@ -19,7 +19,7 @@ function signIn() {
             const user = result.user;
             checkMentor(user.uid).then(r => r && (window.location.href = "/mentor"));
 
-            await getPeopleData(result.credential.accessToken);
+            await getPeopleData(result.credential.accessToken).catch((e) => console.error(e));
             window.location.href = "/profile";
         })
         .catch((error) => {
