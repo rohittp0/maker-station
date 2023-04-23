@@ -1,156 +1,154 @@
-body{
-    background-color: black;
-    color: white;
-    height: 100vh;
-    font-family: 'Guminert', serif;
-    margin: 0;
-    padding: 0;
+@font-face {
+  font-family: Guminert;
+  src: url(guminert.ttf);
+  font-weight: normal;
 }
 
-.wrapper{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
+body {
+  background-color: black;
+  color: white;
+  height: 100vh;
+  font-family: "Guminert";
+  margin: 0;
+  padding: 0;
 }
 
-.head{
-    align-self: stretch;
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
 }
 
-.head-inner{
-    margin: auto;
-
+.head {
+  align-self: stretch;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
 }
 
-.tinkerhub{
-
+.head-inner {
+  margin: auto;
 }
 
-.heading{
-    font-size: 3em;
-    font-weight: bold;
-    margin-bottom: 0.4em;
+.tinkerhub {
 }
 
-.register-btn{
-    text-decoration: none;
-    background-color: #FA1D1D;
-    border: none;
-    border-radius: 6%;
-    color: white;
-    padding: 1em 3em;
+.heading {
+  font-size: 3em;
+  font-weight: bold;
+  margin-bottom: 0.4em;
 }
 
-.mid{
-    background-color: #FA1D1D;
-    align-self: stretch;
-    display: flex;
-    justify-content: center;
-
+.register-btn {
+  text-decoration: none;
+  background-color: #fa1d1d;
+  border: none;
+  border-radius: 6%;
+  color: white;
+  padding: 1em 3em;
 }
 
-.bottom{
-    height: 12em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.mid {
+  background-color: #fa1d1d;
+  align-self: stretch;
+  display: flex;
+  justify-content: center;
 }
 
-.link{
-    color: white;
+.bottom {
+  height: 12em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.partnership{
-    display: flex;
-    justify-content: center;
-    gap: 1em;
-
+.link {
+  color: white;
 }
 
-.center{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-body{
-    background-color: black;
-    color: white;
-    height: 100vh;
-    font-family: 'Guminert';
-    margin: 0;
-    padding: 0;
+.partnership {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
 }
 
-.wrapper{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body {
+  background-color: black;
+  color: white;
+  height: 100vh;
+  font-family: "Guminert";
+  margin: 0;
+  padding: 0;
 }
 
-.head{
-    align-self: stretch;
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
 }
 
-.head-inner{
-    margin: auto;
-
+.head {
+  align-self: stretch;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
 }
 
-.tinkerhub{
-
+.head-inner {
+  margin: auto;
 }
 
-.heading{
-    font-size: 3em;
-    font-weight: bold;
-    margin-bottom: 0.4em;
+.tinkerhub {
 }
 
-.register-btn{
-    text-decoration: none;
-    background-color: #FA1D1D;
-    border: none;
-    border-radius: 6%;
-    color: white;
-    padding: 1em 3em;
+.heading {
+  font-size: 3em;
+  font-weight: bold;
+  margin-bottom: 0.4em;
 }
 
-.mid{
-    background-color: #FA1D1D;
-    align-self: stretch;
-    display: flex;
-    justify-content: center;
-
+.register-btn {
+  text-decoration: none;
+  background-color: #fa1d1d;
+  border: none;
+  border-radius: 6%;
+  color: white;
+  padding: 1em 3em;
 }
 
-.bottom{
-    height: 12em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.mid {
+  background-color: #fa1d1d;
+  align-self: stretch;
+  display: flex;
+  justify-content: center;
 }
 
-.link{
-    color: white;
+.bottom {
+  height: 12em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.partnership{
-    display: flex;
-    justify-content: center;
-    gap: 1em;
-
+.link {
+  color: white;
 }
 
-.center{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.partnership {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -1,21 +1,134 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Maker Stations</title>
+<html class="h-full">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Maker Stations</title>
 
-  <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="css/index.css" />
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/9.20.0/firebase-app-compat.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/9.20.0/firebase-auth-compat.js"></script>
+    <!-- Initialize firebase -->
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              Guminert: ["Guminert"],
+            },
+            boxShadow: {
+              inner1: "0px 0px 24px 0px #2B60ED99;",
+            },
+            colors: {
+              red1: "#FA1D1D",
+              red2: "#F8A8A8",
+              shadow1: "#2B60ED99",
+              grey1: "#BFBFBF",
+            },
+          },
+          animation: {
+            marquee: "marquee 25s linear infinite",
+            marquee2: "marquee2 25s linear infinite",
+          },
+          keyframes: {
+            marquee: {
+              "0%": { transform: "translateX(0%)" },
+              "100%": { transform: "translateX(-100%)" },
+            },
+            marquee2: {
+              "0%": { transform: "translateX(100%)" },
+              "100%": { transform: "translateX(0%)" },
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="h-full text-white bg-black font-Guminert">
+    <div class="flex flex-col h-full">
+      <div class="flex justify-center items-center py-9 text-3xl font-bold">
+        Maker Stations Flow
+      </div>
+      <div
+        class="relative flex overflow-x-hidden h-10 bg-red1 flex items-center font-bold"
+      >
+        <div class="animate-marquee whitespace-nowrap">
+          3 Days 😎 10 Venues 🥳 10 Districts 🤩 20+ Learning Stations 😍 100+
+          Project Experiences 🫡 400+ Mentors 🤌 5000+ Learners 🤯
+        </div>
+        <div class="absolute animate-marquee2 whitespace-nowrap">
+          3 Days 😎 10 Venues 🥳 10 Districts 🤩 20+ Learning Stations 😍 100+
+          Project Experiences 🫡 400+ Mentors 🤌 5000+ Learners 🤯
+        </div>
+      </div>
 
-  <!-- update the version number as needed -->
-  <script defer src="/__/firebase/9.20.0/firebase-app-compat.js"></script>
-  <!-- include only the Firebase features as you need -->
-  <script defer src="/__/firebase/9.20.0/firebase-auth-compat.js"></script>
-  <!-- Initialize firebase -->
-  <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+      <div class="flex-auto flex font-bold justify-center">
+        <div class="max-w-xs mt-10">
+          <div class="flex">
+            <img src="assets/bullet.svg" class="h-5 pt-0.5 pr-3" />
+            <div class="flex flex-col">
+              <span>View your QR code to record your visit</span>
+            </div>
+          </div>
+          <div class="flex flex-col gap-3 py-2 items-center">
+            <div class="rounded-full h-1 w-1 bg-red2"></div>
+            <div class="rounded-full h-1 w-1 bg-red2"></div>
+            <div class="rounded-full h-1 w-1 bg-red2"></div>
+            <div class="rounded-full h-1 w-1 bg-red2"></div>
+          </div>
+          <div class="flex">
+            <img src="assets/bullet.svg" class="h-5 pt-0.5 pr-3" />
+            <div class="flex flex-col">
+              <span>Enter the Project Experience Space</span>
+              <div class="font-light text-grey1">
+                Mark your QR code at each project you visit
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col gap-3 py-2 items-center">
+            <div class="rounded-full h-1 w-1 bg-red2"></div>
+            <div class="rounded-full h-1 w-1 bg-red2"></div>
+            <div class="rounded-full h-1 w-1 bg-red2"></div>
+            <div class="rounded-full h-1 w-1 bg-red2"></div>
+          </div>
+          <div class="flex">
+            <img src="assets/bullet.svg" class="h-5 pt-0.5 pr-3" />
+            <div class="flex flex-col">
+              <span>Visit the Learning Station</span>
+              <div class="font-light text-grey1">
+                Mark your QR code at each stack you visit
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col gap-3 py-2 items-center">
+            <div class="rounded-full h-1 w-1 bg-red2"></div>
+            <div class="rounded-full h-1 w-1 bg-red2"></div>
+            <div class="rounded-full h-1 w-1 bg-red2"></div>
+            <div class="rounded-full h-1 w-1 bg-red2"></div>
+          </div>
+          <div class="flex">
+            <img src="assets/bullet.svg" class="h-5 pt-0.5 pr-3" />
+            <div class="flex flex-col">
+              <span
+                >Get MakerStation wrapper analytics about your MakerStation
+                visit</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
 
-</head>
-<body>
-
-</body>
+      <div class="m-auto mb-12">
+        <button
+          class="h-10 bg-red1 px-10 font-bold rounded-lg shadow-shadow1 shadow-inner1"
+        >
+          View you QR Code
+        </button>
+      </div>
+    </div>
+  </body>
 </html>
