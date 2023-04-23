@@ -15,13 +15,14 @@ const user = new Promise((resolve, reject) => {
         if (!user) {
             reject("User not logged in");
             window.location.href = "/";
-        } else
+        } else {
             resolve(user);
+            checkMentor(user.uid).then(r => r && (window.location.href = "/mentor"));
+        }
     });
 });
 
-
-function updateFields(){
+function updateFields() {
     const {phno, gender, graduation_year, venue} = data;
 
     console.log(data);
@@ -32,7 +33,6 @@ function updateFields(){
     venueTextBox.value = venue || "";
 
 }
-
 
 async function getProfile() {
     const uid = (await user).uid;
@@ -50,10 +50,10 @@ async function getProfile() {
     if (doc?.exists)
         data = {...data, ...doc.data()};
 
-    if(localStorage.getItem("phone"))
+    if (localStorage.getItem("phone"))
         data.phno = localStorage.getItem("phone");
 
-    if(localStorage.getItem("gender"))
+    if (localStorage.getItem("gender"))
         data.gender = localStorage.getItem("gender");
 
     updateFields();
@@ -83,8 +83,6 @@ async function saveProfile() {
         });
 }
 
-
 getProfile().catch(console.error);
-
 
 submit.addEventListener("click", saveProfile);
