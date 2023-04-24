@@ -23,13 +23,21 @@ service cloud.firestore {
       return editedKeys.hasOnly(allowedFields);
   }
 
+  function notEditingFields(fields) {
+        let editedKeys = request.resource.data.diff(resource.data).affectedKeys();
+        return !editedKeys.hasAny(fields);
+    }
+
   match /databases/{database}/documents {
     match /{document=**} {
 
       match /users/{user}{
       	allow read: if request.auth.uid == user;
         allow write: if request.auth.uid == user &&
-        	validUserData(request.auth.uid, request.auth.token, request.resource.data);
+        	validUserData(request.auth.uid, request.auth.token, request.resource.data) &&
+        	notEditingFields(["visited"]);
+
+        allow update: if request.auth.token.mentor && editingOnlyAllowedFields(["visited"]);
 
       	match /stalls/{id} {
         	allow read: if request.auth.uid == user;
@@ -47,7 +55,7 @@ service cloud.firestore {
         allow list: if request.auth.token.mentor;
       }
 
-      match /venue/venues {
+      match /venues/venue_list {
         allow read: if request.auth != null;
       }
     }

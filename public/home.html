@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Maker Stations</title>
 
-    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/index.css">
 
     <!-- update the version number as needed -->
     <script defer src="/__/firebase/9.20.0/firebase-app-compat.js"></script>
@@ -19,9 +19,47 @@
 
     <script defer src="/js/home.js"></script>
 
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="/js/utils.js"></script>
+
 </head>
-<body>
-<div id="qrcode">
+<body class="h-full text-white bg-black font-Guminert">
+<div class="flex flex-col h-full">
+    <div class="flex justify-center items-center py-9 text-3xl font-bold">
+        Maker Stations
+    </div>
+    <div
+            class="relative flex overflow-x-hidden h-10 bg-red1 flex items-center font-bold"
+    >
+        <div class="animate-marquee whitespace-nowrap">
+            3 Days 😎 10 Venues 🥳 10 Districts 🤩 20+ Learning Stations 😍 100+
+            Project Experiences 🫡 400+ Mentors 🤌 5000+ Learners 🤯
+        </div>
+        <div class="absolute animate-marquee2 whitespace-nowrap">
+            3 Days 😎 10 Venues 🥳 10 Districts 🤩 20+ Learning Stations 😍 100+
+            Project Experiences 🫡 400+ Mentors 🤌 5000+ Learners 🤯
+        </div>
+    </div>
+
+    <div class="mt-10 flex-col flex font-bold items-center">
+        <div class="flex">
+            <div class="p-5 bg-white" id="qrcode">
+            </div>
+        </div>
+        <div class="flex my-5 max-w-xs">
+            <div class="flex flex-col">
+                    <span>
+                        Make sure to scan your QR code at each project and learning stations you visit,
+                        so we know what you saw and what you liked 😊.
+                    </span>
+            </div>
+        </div>
+        <div class="flex mt-10">
+            <div class="flex flex-col" id="wrapperContainer">
+
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

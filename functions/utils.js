@@ -52,6 +52,18 @@ const project = [
 "Stable Diffusion",
 ]
 
+const venues = [
+"CUSAT",
+"TKMCE",
+"MA College",
+"Model Engineering College",
+"Rajagiri School of Engineering and Technology",
+"SCMS School of Engineering and Technology",
+"SCMS School of Architecture",
+"SCMS Institute of Bioscience and Biotechnology Research and Development",
+]
+
 
 exports.learning = learning;
 exports.project = project;
+exports.venues = venues;

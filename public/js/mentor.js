@@ -31,9 +31,13 @@ async function handleQr(decodedText) {
     const {uid} = JSON.parse(decodedText);
     const stall = await mentorStall;
 
-    db.collection(`users/${uid}/stalls`).doc(stall.id).set({
+    await db.collection(`users/${uid}/stalls`).doc(stall.id).create({
         name: stall.data().name,
         time: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    db.doc(`users/${uid}`).update({
+        visited: firebase.firestore.FieldValue.increment(1)
     });
 }
 
@@ -43,7 +47,7 @@ function onScanSuccess(decodedText, decodedResult) {
         count++;
         resultContainer.innerHTML = `<p>Scanned <b>${count}</b> participants!</p>`;
 
-        handleQr(decodedText);
+        handleQr(decodedText).catch(console.error);
     }
 }
 

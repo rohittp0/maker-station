@@ -64,5 +64,15 @@ async function addStalls()
     await batch.commit();
 }
 
+async function addVenues()
+{
+    const {venues} = require("./utils");
+
+    await firestore.collection("venues").doc("venue_list").set({
+        venues
+    });
+}
+
 // addStalls();
+// addVenues();
 

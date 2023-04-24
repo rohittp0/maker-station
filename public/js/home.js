@@ -1,4 +1,5 @@
 const auth = firebase.auth();
+const db = firebase.firestore();
 
 const qr = new QRCode(document.getElementById('qrcode'), {
     width: 256,
@@ -24,3 +25,18 @@ user.then(async (user) => {
     qr.clear();
     qr.makeCode(JSON.stringify({uid: user.uid}));
 });
+
+async function addButton() {
+    db.doc(`users/${user.uid}`).onSnapshot((doc) => {
+        if (doc.exists) {
+            const data = doc.data();
+            if (data.visited > 3) {
+                document.getElementById('wrapperContainer').innerHTML =
+                    `<a href="https://airtable.com/shrX6eup092tsqub7?prefill_User+ID=${user.uid}">
+                        class="py-3 bg-red1 px-10 font-bold rounded-lg shadow-shadow1 shadow-inner1">
+                        Get MakerStation wrapper
+                    </a>`
+            }
+        }
+    });
+}

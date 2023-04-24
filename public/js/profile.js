@@ -58,8 +58,8 @@ async function getProfile() {
 }
 
 async function getVenues() {
-    const venues = await db.collection("venue").doc("venues").get();
-    venues.data().venue_list.forEach((venue) => {
+    const venues = await db.collection("venues").doc("venue_list").get();
+    venues.data().venues.forEach((venue) => {
         const option = document.createElement("option");
         option.value = venue;
         option.innerText = venue;
