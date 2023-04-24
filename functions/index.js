@@ -2,7 +2,6 @@ const admin = require('firebase-admin');
 const functions = require('firebase-functions');
 const {learning} = require("./utils");
 
-
 admin.initializeApp();
 const firestore = admin.firestore();
 const auth = admin.auth();
@@ -27,9 +26,31 @@ exports.newUser = functions.auth.user().onCreate(async (user) => {
     return auth.setCustomUserClaims(user.uid, {mentor: true});
 });
 
+exports.sendMail = functions.https.onCall(async (data, context) => {
+    const uid = context.auth?.uid;
 
-async function addStalls()
-{
+    if (!uid)
+        throw new functions.https.HttpsError("unauthenticated", "User not authenticated");
+
+    const user = await firestore.collection("users").doc(uid).get();
+
+    if (!user.exists)
+        throw new functions.https.HttpsError("not-found", "User not found");
+
+    if(user.data().emailSent)
+        throw new functions.https.HttpsError("already-exists", "Email already sent");
+
+    const {name, email} = user.data();
+
+
+
+    await user.ref.update({
+        emailSent: true
+    });
+
+});
+
+async function addStalls() {
     const {learning, project} = require("./utils");
 
     const index = {
@@ -42,8 +63,8 @@ async function addStalls()
     learning.forEach((name) => {
         const doc = firestore.collection("stalls").doc();
         batch.set(doc, {
-           name,
-           type: "learning"
+            name,
+            type: "learning"
         });
 
         index.learning[name] = doc.id;
@@ -64,8 +85,7 @@ async function addStalls()
     await batch.commit();
 }
 
-async function addVenues()
-{
+async function addVenues() {
     const {venues} = require("./utils");
 
     await firestore.collection("venues").doc("venue_list").set({
