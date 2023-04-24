@@ -27,23 +27,19 @@ user.then(async (user) => {
 });
 
 async function addButton() {
-    const {uid} = await user;
+    const {uid, displayName} = await user;
+
+    const message = `Hey ${displayName} 👋
+looks like you are enjoying the maker station 😍. 
+We would love to hear your feedback. 
+Would you like to fill a feedback form?`;
 
     db.doc(`users/${uid}`).onSnapshot((doc) => {
         const data = doc.data();
-        if (data.visited > 3) {
-            document.getElementById('wrapperContainer').innerHTML =
-                `<a href="https://airtable.com/shrX6eup092tsqub7?prefill_User+ID=${uid}"
-                        class="py-3 bg-red1 px-10 font-bold rounded-lg shadow-shadow1 shadow-inner1">
-                        Get MakerStation wrapper
-                    </a>`
+        if (data.visited > 10 && !localStorage.getItem("feedback") && window.confirm(message)) {
+            localStorage.setItem("feedback", "true");
+            window.location.href = `https://airtable.com/shrX6eup092tsqub7?prefill_User+ID=${uid}`;
         }
-        else
-            document.getElementById('wrapperContainer').innerHTML =
-                `<a href="/wrapper"
-                        class="py-3 bg-red1 px-10 font-bold rounded-lg shadow-shadow1 shadow-inner1">
-                        Get MakerStation wrapper
-                    </a>`
     });
 }
 
