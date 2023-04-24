@@ -27,16 +27,24 @@ user.then(async (user) => {
 });
 
 async function addButton() {
-    db.doc(`users/${user.uid}`).onSnapshot((doc) => {
-        if (doc.exists) {
-            const data = doc.data();
-            if (data.visited > 3) {
-                document.getElementById('wrapperContainer').innerHTML =
-                    `<a href="https://airtable.com/shrX6eup092tsqub7?prefill_User+ID=${user.uid}">
+    const {uid} = await user;
+
+    db.doc(`users/${uid}`).onSnapshot((doc) => {
+        const data = doc.data();
+        if (data.visited > 3) {
+            document.getElementById('wrapperContainer').innerHTML =
+                `<a href="https://airtable.com/shrX6eup092tsqub7?prefill_User+ID=${uid}"
                         class="py-3 bg-red1 px-10 font-bold rounded-lg shadow-shadow1 shadow-inner1">
                         Get MakerStation wrapper
                     </a>`
-            }
         }
+        else
+            document.getElementById('wrapperContainer').innerHTML =
+                `<a href="/wrapper"
+                        class="py-3 bg-red1 px-10 font-bold rounded-lg shadow-shadow1 shadow-inner1">
+                        Get MakerStation wrapper
+                    </a>`
     });
 }
+
+addButton().catch(console.error);
