@@ -40,8 +40,8 @@ service cloud.firestore {
         allow update: if request.auth.token.mentor && editingOnlyAllowedFields(["visited"]);
 
       	match /stalls/{id} {
-        	allow read: if request.auth.uid == user;
-          allow write: if request.auth.token.mentor;
+          allow read: if request.auth.uid == user;
+          allow create: if request.auth.token.mentor;
         }
       }
 
