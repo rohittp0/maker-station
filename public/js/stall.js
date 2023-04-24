@@ -1,6 +1,8 @@
 const auth = firebase.auth();
 const db = firebase.firestore();
 
+const stall = document.getElementById("stall");
+
 // Listen for auth status changes
 const user = new Promise((resolve, reject) => {
     auth.onAuthStateChanged(user => {
@@ -14,9 +16,19 @@ const user = new Promise((resolve, reject) => {
 
 
 async function getStallsAsOptions(){
-    const stalls = await db.collection("stalls").get();
-    const options = stalls.docs.map(doc => `<option value="${doc.id}">${doc.data().name}</option>`);
-    document.getElementById("stall").innerHTML = options.join("");
+    const stalls = await db.collection("stalls").doc("stall_list").get();
+    const options = []
+
+    const learning = stalls.data().learning;
+    const project = stalls.data().project;
+
+    for(const stall in learning)
+        options.push(`<option value="${learning[stall]}" data-type="learning">${stall}</option>`);
+
+    for(const stall in project)
+        options.push(`<option value="${project[stall]}" data-type="project">${stall}</option>`);
+
+    stall.innerHTML = options.join("");
 }
 
 async function saveStall(){
@@ -28,3 +40,18 @@ async function saveStall(){
 
 document.getElementById("save").addEventListener("click", saveStall);
 getStallsAsOptions().catch(console.error);
+
+document.getElementById("stallType").addEventListener("change", e => {
+   const value = e.target.value;
+   const options = document.querySelectorAll("#stall option");
+
+    if(value)
+        stall.value = "";
+
+   options.forEach(option => {
+         if(!value || option.dataset.type === value)
+              option.style.display = "block";
+         else
+              option.style.display = "none";
+   });
+});

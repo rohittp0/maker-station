@@ -1,32 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Maker Stations</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Maker Stations</title>
 
-  <link rel="stylesheet" href="/css/stall.css">
+    <link rel="stylesheet" href="/css/stall.css">
 
-  <!-- update the version number as needed -->
-  <script defer src="/__/firebase/9.20.0/firebase-app-compat.js"></script>
-  <!-- include only the Firebase features as you need -->
-  <script defer src="/__/firebase/9.20.0/firebase-auth-compat.js"></script>
-  <script defer src="/__/firebase/9.20.0/firebase-firestore-compat.js"></script>
-  <!-- Initialize firebase -->
-  <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/9.20.0/firebase-app-compat.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/9.20.0/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/9.20.0/firebase-firestore-compat.js"></script>
+    <!-- Initialize firebase -->
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
 
-  <script defer src="/js/utils.js"></script>
-  <script defer src="/js/stall.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script defer src="/js/utils.js"></script>
+    <script defer src="/js/stall.js"></script>
 
 </head>
-<body>
-<label for="stallType">Select Stall Type</label>
-<select id="stallType">
-    <option value="project">Project</option>
-    <option value="learning">Learning</option>
-</select>
-<label for="stall">Stall:</label>
-<select id="stall"></select>
-<button id="save">Save</button>
+<body class="h-full text-white bg-black font-Guminert">
+<div class="flex flex-col h-full p-5">
+    <label for="stallType">Stall Type</label>
+    <select id="stallType" class="mb-5 h-10 bg-gray-500	">
+        <option value="" selected>Select Type</option>
+        <option value="project">Project</option>
+        <option value="learning">Learning</option>
+    </select>
+    <label for="stall">Stall:</label>
+    <select id="stall" class="mb-5 h-10 bg-gray-500 w-100"></select>
+    <button id="save" class="h-10 bg-red1 px-10 font-bold rounded-lg shadow-shadow1 shadow-inner1 mt-5">
+        Save
+    </button>
+</div>
 </body>
 </html>

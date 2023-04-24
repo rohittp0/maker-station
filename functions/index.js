@@ -1,5 +1,6 @@
 const admin = require('firebase-admin');
 const functions = require('firebase-functions');
+const {learning} = require("./utils");
 
 
 admin.initializeApp();
@@ -25,4 +26,43 @@ exports.newUser = functions.auth.user().onCreate(async (user) => {
 
     return auth.setCustomUserClaims(user.uid, {mentor: true});
 });
+
+
+async function addStalls()
+{
+    const {learning, project} = require("./utils");
+
+    const index = {
+        learning: {},
+        project: {}
+    }
+
+    const batch = firestore.batch();
+
+    learning.forEach((name) => {
+        const doc = firestore.collection("stalls").doc();
+        batch.set(doc, {
+           name,
+           type: "learning"
+        });
+
+        index.learning[name] = doc.id;
+    });
+
+    project.forEach((name) => {
+        const doc = firestore.collection("stalls").doc();
+        batch.set(doc, {
+            name,
+            type: "project"
+        });
+
+        index.project[name] = doc.id;
+    });
+
+    batch.set(firestore.collection("stalls").doc("stall_list"), index);
+
+    await batch.commit();
+}
+
+// addStalls();
 
