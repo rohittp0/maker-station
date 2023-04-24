@@ -22,7 +22,6 @@ const user = new Promise((resolve, reject) => {
     });
 });
 
-
 async function getVenue() {
     const {uid} = await user;
 
@@ -31,7 +30,7 @@ async function getVenue() {
 
     let venueName = doc.data().venue;
 
-    if(venueName.length > 30)
+    if (venueName.length > 30)
         venueName = venueName.substring(0, 30) + "...";
 
     venue.innerHTML = `Venue: ${venueName}`;
@@ -41,7 +40,7 @@ async function getDetails() {
     const {uid} = await user;
     const stations = await db.collection(`users/${uid}/stalls`).orderBy("time", "desc").get();
 
-    if(stations.docs.length === 0)
+    if (stations.docs.length === 0)
         return window.alert("Please visit some stations first!");
 
     const lastTime = stations.docs[0].data().time.seconds;
@@ -53,27 +52,30 @@ async function getDetails() {
     time.innerHTML = `${timeDiffMinutes} Minutes`;
 
     const totalProjects = stations.docs.reduce((acc, cur) => {
-        if(cur.data().type === "project")
+        if (cur.data().type === "project")
             return acc + 1;
         return acc;
     }, 0);
 
     const totalLearning = stations.docs.reduce((acc, cur) => {
-        if(cur.data().type === "learning")
+        if (cur.data().type === "learning")
             return acc + 1;
         return acc;
     }, 0);
 
+    fillProgress1(totalProjects / 0.24);
+    fillProgress2(totalLearning / 0.24);
+
     let mostTime = null;
     let timeSpent = 0;
 
-    for(let i = 1; i < stations.docs.length; i++) {
+    for (let i = 1; i < stations.docs.length; i++) {
         const current = stations.docs[i].data().time.seconds;
         const previous = stations.docs[i - 1].data().time.seconds;
 
         const timeSpentHere = previous - current;
 
-        if(timeSpentHere > timeSpent) {
+        if (timeSpentHere > timeSpent) {
             timeSpent = timeSpentHere;
             mostTime = stations.docs[i].data().name;
         }
@@ -143,6 +145,39 @@ async function shareImage() {
 user.then(({displayName}) => {
     name.innerHTML = displayName;
 });
+
+function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
+    const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
+
+    return {
+        x: centerX + (radius * Math.cos(angleInRadians)),
+        y: centerY + (radius * Math.sin(angleInRadians))
+    };
+}
+
+function describeArc(x, y, radius, startAngle, endAngle) {
+
+    const start = polarToCartesian(x, y, radius, endAngle);
+    const end = polarToCartesian(x, y, radius, startAngle);
+
+    const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+
+    return [
+        "M", start.x, start.y,
+        "A", radius, radius, 0, largeArcFlag, 0, end.x, end.y
+    ].join(" ");
+}
+
+function fillProgress1(percent) {
+    const degree = percent * 3.6
+    document.getElementById("progress1").setAttribute("d", describeArc(313, 965, 152, 180, 180 + degree - 1));
+}
+
+function fillProgress2(percent) {
+    const degree = percent * 3.6
+    document.getElementById("progress2").setAttribute("d", describeArc(770, 965, 152, 180, 180 + degree - 1));
+
+}
 
 getVenue().catch(console.error);
 getDetails().catch(console.error);
