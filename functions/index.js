@@ -42,7 +42,15 @@ exports.sendMail = functions.https.onCall(async (data, context) => {
 
     const {name, email} = user.data();
 
-
+    await firestore.collection("mail").add({
+        to: [email],
+        template: {
+            name: "finish",
+            data: {
+                name,
+            },
+        },
+    });
 
     await user.ref.update({
         emailSent: true
