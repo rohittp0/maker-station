@@ -33,7 +33,8 @@ async function handleQr(decodedText) {
 
     await db.collection(`users/${uid}/stalls`).doc(stall.id).create({
         name: stall.data().name,
-        time: firebase.firestore.FieldValue.serverTimestamp()
+        time: firebase.firestore.FieldValue.serverTimestamp(),
+        type: stall.data().type
     });
 
     db.doc(`users/${uid}`).update({
