@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Maker Stations</title>
 
-    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="css/index.css">
 
     <!-- update the version number as needed -->
     <script defer src="/__/firebase/9.20.0/firebase-app-compat.js"></script>
@@ -16,8 +16,33 @@
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
 
     <script defer src="/js/utils.js"></script>
-
   <script defer src="/js/index.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              Guminert: ["Guminert"],
+            },
+          },
+          animation: {
+            marquee: "marquee 25s linear infinite",
+            marquee2: "marquee2 25s linear infinite",
+          },
+          keyframes: {
+            marquee: {
+              "0%": { transform: "translateX(0%)" },
+              "100%": { transform: "translateX(-100%)" },
+            },
+            marquee2: {
+              "0%": { transform: "translateX(100%)" },
+              "100%": { transform: "translateX(0%)" },
+            },
+          },
+        },
+      };
+    </script>
 </head>
 <body>
 <div class="wrapper">
@@ -28,18 +53,26 @@
       </div>
       <div class="heading">
         <div>Maker</div>
-        <div>Station</div>
+        <div style="margin-top: -33px">Stations</div>
       </div>
-
       <button class="register-btn" id="login">👉 Register here</button>
     </div>
   </div>
   <div class="mid">
-    <p>
-      3 Days 😎 10 Venues 🥳 10 Districts 🤩 20+ Learning Stations 😍 100+
-      Project Experiences 🫡 400+ Mentors 🤌 5000+ Learners 🤯
-    </p>
+    <div
+            class="relative flex overflow-x-hidden h-10 bg-red1 flex items-center font-bold"
+    >
+      <div class="animate-marquee whitespace-nowrap">
+        3 Days 😎 10 Venues 🥳 10 Districts 🤩 20+ Learning Stations 😍 100+
+        Project Experiences 🫡 400+ Mentors 🤌 5000+ Learners 🤯
+      </div>
+      <div class="absolute animate-marquee2 whitespace-nowrap">
+        3 Days 😎 10 Venues 🥳 10 Districts 🤩 20+ Learning Stations 😍 100+
+        Project Experiences 🫡 400+ Mentors 🤌 5000+ Learners 🤯
+      </div>
+    </div>
   </div>
+
   <div class="bottom">
     <div style="margin: 2em 0">
       <a href="#" class="link">What’s Maker Stations ?</a>
@@ -47,10 +80,12 @@
     <div class="partnership">
       <div>
         <p>in partnership with</p>
-        <img src="/img/Amazon.png" alt="amazon logo" />
+        <img src="img/Amazon.png" alt="amazon logo" />
       </div>
       <div class="center">
-        <a href="#">tinkerhub.org</a>
+        <a href="https://www.tinkerhub.org/">
+          <button class="tinkerhub-btn" >tinkerhub.org</button>
+        </a>
       </div>
     </div>
   </div>

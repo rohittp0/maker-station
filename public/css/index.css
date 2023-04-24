@@ -43,10 +43,17 @@ body {
 .register-btn {
   text-decoration: none;
   background-color: #fa1d1d;
-  border: none;
-  border-radius: 6%;
   color: white;
   padding: 1em 3em;
+  border-radius: 1em;
+}
+
+.tinkerhub-btn{
+  text-decoration: none;
+  background-color: #595757;
+  color: white;
+  padding: 0.5em 1em;
+  border-radius: 0.75em;
 }
 
 .mid {
@@ -109,18 +116,10 @@ body {
 }
 
 .heading {
-  font-size: 3em;
+  font-size: 4em;
   font-weight: bold;
-  margin-bottom: 0.4em;
-}
+  margin-bottom: 0.1em;
 
-.register-btn {
-  text-decoration: none;
-  background-color: #fa1d1d;
-  border: none;
-  border-radius: 6%;
-  color: white;
-  padding: 1em 3em;
 }
 
 .mid {

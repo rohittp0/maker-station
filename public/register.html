@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html class="h-full">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Maker Stations</title>
+
+    <link rel="stylesheet" href="css/register.css" />
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/9.20.0/firebase-app-compat.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/9.20.0/firebase-auth-compat.js"></script>
+    <!-- Initialize firebase -->
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        Guminert: ["Guminert"],
+                    },
+                    boxShadow: {
+                        inner1: "0px 0px 24px 0px #2B60ED99;",
+                    },
+                    colors: {
+                        red1: "#FA1D1D",
+                        red2: "#F8A8A8",
+                        shadow1: "#2B60ED99",
+                        grey1: "#BFBFBF",
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+<body class="h-full text-white bg-black font-Guminert">
+<div class="flex flex-col h-full">
+    <div class="flex justify-center items-center py-9 text-2xl " style="text-align: center;">
+        Hey {First Name},<br>
+        Please Complete the Following<br>Form
+    </div>
+
+    <div class="flex-auto flex font-bold justify-center">
+        <div class="max-w-xs mt-10">
+            <form>
+                <label class="label-font" for="phone-number" style="display:block;">Phone number:</label>
+                <input  placeholder="Enter your phone number" type="tel" id="phone-number" name="phone-number" class="registration-field" required>
+
+                <label class="label-font" for="pronoun" style="display:block;">Pronoun:</label>
+                <select id="pronoun" name="pronoun" class="registration-field" required>
+                    <option style="color: #888888" value="">Select your pronoun</option>
+                    <option style="color: #888888" value="she/her">She/Her</option>
+                    <option style="color: #888888" value="he/him">He/Him</option>
+                    <option style="color: #888888" value="they/them">They/Them</option>
+                </select>
+
+                <label class="label-font" for="graduation-year" style="display:block;">Graduation year:</label>
+                <select id="graduation-year" name="graduation-year" class="registration-field" required>
+                    <option value="">Select your year of graduation</option>
+                    <option style="color: #888888" value="2022">2022</option>
+                    <option style="color: #888888" value="2023">2023</option>
+                    <option style="color: #888888" value="2024">2024</option>
+                    <option style="color: #888888" value="2025">2025</option>
+                </select>
+
+                <label class="label-font" for="venue" style="display:block;">Venue:</label>
+                <select id="venue" name="venue" class="registration-field" required>
+                    <option value="">Select MakerStation venue</option>
+                    <option style="color: #888888" value="indoor">a</option>
+                    <option style="color: #888888" value="outdoor">b</option>
+                    <option style="color: #888888" value="online">c</option>
+                </select>
+                <div class="m-auto mb-12" style="text-align: center">
+                    <button class="h-10 bg-red1 px-10 font-bold rounded-lg shadow-shadow1 shadow-inner1">
+                        Submit and Continue
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
