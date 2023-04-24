@@ -31,7 +31,7 @@ async function handleQr(decodedText) {
     const {uid} = JSON.parse(decodedText);
     const stall = await mentorStall;
 
-    await db.collection(`users/${uid}/stalls`).doc(stall.id).create({
+    await db.collection(`users/${uid}/stalls`).doc(stall.id).set({
         name: stall.data().name,
         time: firebase.firestore.FieldValue.serverTimestamp(),
         type: stall.data().type
