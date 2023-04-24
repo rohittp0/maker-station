@@ -19,12 +19,12 @@ service cloud.firestore {
   }
 
   function editingOnlyAllowedFields(allowedFields) {
-      let editedKeys = request.resource.data.diff(resource.data).affectedKeys();
+      let editedKeys = request.resource.data.diff(resource != null ? resource.data : {}).affectedKeys();
       return editedKeys.hasOnly(allowedFields);
   }
 
   function notEditingFields(fields) {
-        let editedKeys = request.resource.data.diff(resource.data).affectedKeys();
+        let editedKeys = request.resource.data.diff(resource != null ? resource.data : {}).affectedKeys();
         return !editedKeys.hasAny(fields);
     }
 

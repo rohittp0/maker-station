@@ -53,14 +53,16 @@ const project = [
 ]
 
 const venues = [
-"CUSAT",
-"TKMCE",
-"MA College",
-"Model Engineering College",
-"Rajagiri School of Engineering and Technology",
-"SCMS School of Engineering and Technology",
-"SCMS School of Architecture",
-"SCMS Institute of Bioscience and Biotechnology Research and Development",
+"Rajadhani Institute of Engineering and Technology, Attingal",
+"Sree Buddha College of Engineering, Pattoor",
+"College of Engineering, Vadakara",
+"College of Engineering, Chengannur",
+"Government Engineering College, Wayanad",
+"Mar Baselios Christian College of Engineering and Technology, Peermade",
+"TKM College of Engineering, Kollam",
+"College of Engineering Thiruvananthapuram",
+"Christ College of Engineering, Irinjalakkuda",
+"TinkerSpace Kochi"
 ]
 
 

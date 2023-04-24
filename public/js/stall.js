@@ -16,7 +16,7 @@ const user = new Promise((resolve, reject) => {
 
 
 async function getStallsAsOptions(){
-    const stalls = await db.collection("stalls").doc("stall_list").get();
+    const stalls = await db.doc("stalls/stall_list").get().catch(() => auth.signOut())
     const options = []
 
     const learning = stalls.data().learning;

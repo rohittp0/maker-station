@@ -101,6 +101,20 @@ async function addVenues() {
     });
 }
 
+async function addMentor(email) {
+    const user = await auth.getUserByEmail(email);
+
+    await firestore.collection("mentors").doc(user.uid).set({
+        email: user.email,
+        name: user.displayName,
+        photo: user.photoURL
+    });
+
+    return auth.setCustomUserClaims(user.uid, {mentor: true});
+}
+
+addMentor("tprohit9@gmail.com")
+
 // addStalls();
 // addVenues();
 
