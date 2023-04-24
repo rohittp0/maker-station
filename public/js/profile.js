@@ -2,11 +2,12 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 
 const phoneTextBox = document.getElementById("phone");
-const genderTextBox = document.getElementById("gender");
-const graduationYearTextBox = document.getElementById("graduationYear");
-const venueTextBox = document.getElementById("venue");
+const genderSelect = document.getElementById("gender");
+const graduationSelect = document.getElementById("graduationYear");
+const venueSelect = document.getElementById("venue");
 
-const submit = document.getElementById("submit");
+const form = document.getElementById("detailsForm");
+const greeting = document.getElementById("greeting");
 
 let data = {};
 
@@ -25,13 +26,10 @@ const user = new Promise((resolve, reject) => {
 function updateFields() {
     const {phno, gender, graduation_year, venue} = data;
 
-    console.log(data);
-
     phoneTextBox.value = phno || "";
-    genderTextBox.value = gender || "";
-    graduationYearTextBox.value = graduation_year;
-    venueTextBox.value = venue || "";
-
+    genderSelect.value = gender || "";
+    graduationSelect.value = graduation_year;
+    venueSelect.value = venue || "";
 }
 
 async function getProfile() {
@@ -59,30 +57,43 @@ async function getProfile() {
     updateFields();
 }
 
-async function saveProfile() {
-    submit.disabled = true;
+async function getVenues() {
+    const venues = await db.collection("venue").doc("venues").get();
+    venues.data().venue_list.forEach((venue) => {
+        const option = document.createElement("option");
+        option.value = venue;
+        option.innerText = venue;
+        option.style.color = "#888888"
+        venueSelect.appendChild(option);
+    });
+}
+
+async function saveProfile(e) {
+    e.preventDefault();
+    form.disabled = true;
 
     const uid = (await user).uid;
     const docRef = db.collection("users").doc(uid);
 
     data.phno = phoneTextBox.value;
-    data.gender = genderTextBox.value;
-    data.graduation_year = parseInt(graduationYearTextBox.value);
-    data.venue = venueTextBox.value;
-
-    const u = await user;
-
-    console.log(data, u);
+    data.gender = genderSelect.value;
+    data.graduation_year = parseInt(graduationSelect.value);
+    data.venue = venueSelect.value;
 
     docRef.set(data)
         .then(() => window.location.href = "/flow")
         .catch((error) => {
             window.alert("Error saving details");
             console.error("Error writing document: ", error);
-            submit.disabled = false;
         });
 }
 
-getProfile().catch(console.error);
+user.then((u) => {
+    const text = greeting.innerText;
+    greeting.innerText = text.replace("{{AMAZING_HUMAN}}", u.displayName);
+});
 
-submit.addEventListener("click", saveProfile);
+getProfile().catch(console.error);
+getVenues().catch(console.error);
+
+form.addEventListener("submit", saveProfile);

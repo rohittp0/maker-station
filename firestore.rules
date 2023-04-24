@@ -44,7 +44,11 @@ service cloud.firestore {
 
       match /stalls/{stall} {
       	allow read: if request.auth.token.mentor;
-        allow write: if request.auth.token.mentor;
+        allow list: if request.auth.token.mentor;
+      }
+
+      match /venue/venues {
+        allow read: if request.auth != null;
       }
     }
   }

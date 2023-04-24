@@ -25,3 +25,4 @@ exports.newUser = functions.auth.user().onCreate(async (user) => {
 
     return auth.setCustomUserClaims(user.uid, {mentor: true});
 });
+

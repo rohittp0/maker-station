@@ -13,40 +13,8 @@
     <!-- Initialize firebase -->
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              Guminert: ["Guminert"],
-            },
-            boxShadow: {
-              inner1: "0px 0px 24px 0px #2B60ED99;",
-            },
-            colors: {
-              red1: "#FA1D1D",
-              red2: "#F8A8A8",
-              shadow1: "#2B60ED99",
-              grey1: "#BFBFBF",
-            },
-          },
-          animation: {
-            marquee: "marquee 25s linear infinite",
-            marquee2: "marquee2 25s linear infinite",
-          },
-          keyframes: {
-            marquee: {
-              "0%": { transform: "translateX(0%)" },
-              "100%": { transform: "translateX(-100%)" },
-            },
-            marquee2: {
-              "0%": { transform: "translateX(100%)" },
-              "100%": { transform: "translateX(0%)" },
-            },
-          },
-        },
-      };
-    </script>
+    <script defer src="/js/utils.js"></script>
+
   </head>
   <body class="h-full text-white bg-black font-Guminert">
     <div class="flex flex-col h-full">
@@ -123,11 +91,11 @@
       </div>
 
       <div class="m-auto mb-12">
-        <button
-          class="h-10 bg-red1 px-10 font-bold rounded-lg shadow-shadow1 shadow-inner1"
+        <a href="/home"
+          class="h-10 bg-red1 px-10 py-5 font-bold rounded-lg shadow-shadow1 shadow-inner1"
         >
           View you QR Code
-        </button>
+        </a>
       </div>
     </div>
   </body>

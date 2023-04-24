@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Maker Stations</title>
 
-    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/profile.css">
 
     <!-- update the version number as needed -->
     <script defer src="/__/firebase/9.20.0/firebase-app-compat.js"></script>
@@ -18,8 +18,51 @@
     <script defer src="/js/utils.js"></script>
     <script defer src="/js/profile.js"></script>
 
-</head>
-<body>
+    <script src="https://cdn.tailwindcss.com"></script>
 
+</head>
+<body class="h-full text-white bg-black font-Guminert">
+<div class="flex flex-col h-full">
+    <div class="flex justify-center items-center py-9 text-2xl " style="text-align: center;" id="greeting">
+        Hey {{AMAZING_HUMAN}},<br>
+        Please Complete the Following<br>Form
+    </div>
+
+    <div class="flex-auto flex font-bold justify-center">
+        <div class="max-w-xs mt-10">
+            <form id="detailsForm">
+                <label class="label-font" for="phone" style="display:block;">Phone number:</label>
+                <input placeholder="Enter your phone number" type="tel" id="phone"
+                       class="registration-field" required>
+
+                <label class="label-font" for="gender" style="display:block;">Pronoun:</label>
+                <select id="gender" class="registration-field" required>
+                    <option style="color: #888888" value="female">She/Her</option>
+                    <option style="color: #888888" value="male">He/Him</option>
+                    <option style="color: #888888" value="other">They/Them</option>
+                </select>
+
+                <label class="label-font" for="graduationYear" style="display:block;">Graduation year:</label>
+                <select id="graduationYear" class="registration-field" required>
+                    <option value="">Select your year of graduation</option>
+                    <option style="color: #888888" value="2022">2022</option>
+                    <option style="color: #888888" value="2023">2023</option>
+                    <option style="color: #888888" value="2024">2024</option>
+                    <option style="color: #888888" value="2025">2025</option>
+                </select>
+
+                <label class="label-font" for="venue" style="display:block;">Venue:</label>
+                <select id="venue" class="registration-field" required>
+                </select>
+                <div class="m-auto mb-12" style="text-align: center">
+                    <button id="submit" class="h-10 bg-red1 px-10 font-bold rounded-lg shadow-shadow1 shadow-inner1">
+                        Submit and Continue
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
 </body>
 </html>

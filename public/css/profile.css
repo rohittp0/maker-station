@@ -1,118 +1,26 @@
-body{
-    
-    background-color: black;
-    color: white;
-    height: 100vh;
-    font-family: 'Guminert';
-    
-    margin: 0;
-    padding: 0;
-
-}
 @font-face {
     font-family: 'Guminert';
-    src: url(/maker-station-app/public/css/font/guminert-6y5gd.ttf);
+    src: url('font/guminert.ttf') format('truetype');
 }
-form{
-    font-family: 'Guminert';
-    display: flex;
-    flex-direction: column;
-    max-width: 400px;
-}
-.header{
-    display: flex;
-    justify-content: center;
 
+body {
+    font-family: Guminert, sans-serif;
 }
-form >div{
-    display: flex;
-    flex-direction: column;
-    margin: 20px;
 
+.registration-field {
+    display: block;
+    background-color: rgba(252, 242, 242, 0.25);
+    color: rgba(253, 253, 253, 0.4);
+    width: 20rem;
+    height: 3rem;
+    border-radius: 1rem;
+    padding-left: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    margin-top: 0.5vh;
+}
 
-} 
-form input{
-    border-radius: 5px;
-    border: none;
-    height: 50px;
-    background-color:  #3D3D3D;
-    
-}
-form select{
-    color:#888888;
-    ;
-    border-radius: 10px;
-    border: none;
-    height: 50px;
-    background-color:  #3D3D3D;
-} 
-.submit_btn{
-    text-decoration: none;
-    background-color: #FA1D1D;
-    border: none;
-    border-radius: 10px;
-    color: white;
-    padding: 1em 3em;
-    width: 200px;
-    margin-left: 60px;
-    justify-content: center;
-}
-body{
-    
-    background-color: black;
-    color: white;
-    height: 100vh;
-    font-family: 'Guminert';
-    
-    margin: 0;
-    padding: 0;
-
-}
-@font-face {
-    font-family: 'Guminert';
-    src: url(/maker-station-app/public/css/font/guminert-6y5gd.ttf);
-}
-form{
-    font-family: 'Guminert';
-    display: flex;
-    flex-direction: column;
-    max-width: 400px;
-}
-.header{
-    display: flex;
-    justify-content: center;
-
-}
-form >div{
-    display: flex;
-    flex-direction: column;
-    margin: 20px;
-
-
-} 
-form input{
-    border-radius: 5px;
-    border: none;
-    height: 50px;
-    background-color:  #3D3D3D;
-    
-}
-form select{
-    color:#888888;
-    ;
-    border-radius: 10px;
-    border: none;
-    height: 50px;
-    background-color:  #3D3D3D;
-} 
-.submit_btn{
-    text-decoration: none;
-    background-color: #FA1D1D;
-    border: none;
-    border-radius: 10px;
-    color: white;
-    padding: 1em 3em;
-    width: 200px;
-    margin-left: 60px;
-    justify-content: center;
+.label-font {
+    font-size: 0.9rem;
 }
