@@ -26,37 +26,32 @@ exports.newUser = functions.auth.user().onCreate(async (user) => {
     return auth.setCustomUserClaims(user.uid, {mentor: true});
 });
 
-exports.sendMail = functions.https.onCall(async (data, context) => {
-    const uid = context.auth?.uid;
+firestore.collection("users")
+    .where("emailSent", "==", false)
+    .where("visited", ">", 5)
+    .onSnapshot((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+            const {name, email} = doc.data();
 
-    if (!uid)
-        throw new functions.https.HttpsError("unauthenticated", "User not authenticated");
+            const batch = firestore.batch();
 
-    const user = await firestore.collection("users").doc(uid).get();
+            batch.create(firestore.collection("mail").doc(), {
+                to: [email],
+                template: {
+                    name: "finish",
+                    data: {
+                        name,
+                    },
+                },
+            });
 
-    if (!user.exists)
-        throw new functions.https.HttpsError("not-found", "User not found");
+            batch.update(doc.ref, {
+                emailSent: true
+            });
 
-    if(user.data().emailSent)
-        throw new functions.https.HttpsError("already-exists", "Email already sent");
-
-    const {name, email} = user.data();
-
-    await firestore.collection("mail").add({
-        to: [email],
-        template: {
-            name: "finish",
-            data: {
-                name,
-            },
-        },
+            return batch.commit();
+        });
     });
-
-    await user.ref.update({
-        emailSent: true
-    });
-
-});
 
 async function addStalls() {
     const {learning, project} = require("./utils");
@@ -113,7 +108,7 @@ async function addMentor(email) {
     return auth.setCustomUserClaims(user.uid, {mentor: true});
 }
 
-addMentor("tprohit9@gmail.com")
+// addMentor("tprohit9@gmail.com")
 
 // addStalls();
 // addVenues();

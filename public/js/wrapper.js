@@ -8,8 +8,6 @@ const learning = document.getElementById('learning');
 const venue = document.getElementById('venue');
 const major = document.getElementById('major');
 
-major.innerHTML = "Python";
-
 const user = new Promise((resolve, reject) => {
     auth.onAuthStateChanged((user) => {
         if (!user) {
@@ -86,7 +84,7 @@ async function getDetails() {
     major.innerHTML = mostTime;
 }
 
-async function svgToPng(svgImage) {
+async function svgToPng(svgImage, url) {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
 
@@ -94,6 +92,9 @@ async function svgToPng(svgImage) {
     canvas.height = svgImage.height;
 
     ctx.drawImage(svgImage, 0, 0);
+
+    if(url)
+        return canvas.toDataURL('image/png');
 
     return new Promise((resolve, reject) => {
         canvas.toBlob((blob) => {
@@ -107,22 +108,30 @@ async function svgToPng(svgImage) {
 }
 
 const loadImage = async url => {
-    const $img = document.createElement('img')
-    $img.src = url
+    const img = document.createElement('img');
+
+    img.width = 756;
+    img.height = 1344;
+
+    img.src = url;
     return new Promise((resolve, reject) => {
-        $img.onload = () => resolve($img)
-        $img.onerror = reject
-        $img.src = url
-    })
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = url;
+    });
 }
 
-async function shareImage() {
+function getSvgBlob() {
     const svg = document.querySelector('svg');
 
     const svgAsXML = (new XMLSerializer()).serializeToString(svg)
     const svgData = `data:image/svg+xml,${encodeURIComponent(svgAsXML)}`
 
-    const svgBlob = await loadImage(svgData);
+    return loadImage(svgData);
+}
+
+async function shareImage() {
+    const svgBlob = await getSvgBlob();
 
     const blobImageAsset = await svgToPng(svgBlob);
 
@@ -140,6 +149,17 @@ async function shareImage() {
     if (navigator.canShare && navigator.canShare(shareData)) {
         await navigator.share(shareData);
     }
+}
+
+async function downloadImage() {
+    const svgBlob = await getSvgBlob();
+
+    const blobImageAsset = await svgToPng(svgBlob, true);
+
+    const link = document.createElement('a');
+    link.download = 'MakerStation.png';
+    link.href = blobImageAsset;
+    link.click();
 }
 
 user.then(({displayName}) => {
@@ -183,7 +203,6 @@ getVenue().catch(console.error);
 getDetails().catch(console.error);
 
 document.getElementById('share').addEventListener('click', shareImage);
+document.getElementById('download').addEventListener('click', downloadImage);
 
-// Call firebase function to send mail
-const sendMail = firebase.functions().httpsCallable('sendMail');
-sendMail();
+document.getElementById("share").hidden = !navigator.canShare || !navigator.canShare();
