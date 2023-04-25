@@ -2,7 +2,7 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 
 // Listen for auth status changes
-const user = new Promise((resolve, reject) => {
+const user = new Promise((resolve) => {
     auth.onAuthStateChanged(user => {
         if (!user)
             window.location.href = "/";
@@ -42,7 +42,7 @@ async function handleQr(decodedText) {
     });
 }
 
-function onScanSuccess(decodedText, decodedResult) {
+function onScanSuccess(decodedText) {
     if (decodedText !== lastResult) {
         lastResult = decodedText;
         count++;
