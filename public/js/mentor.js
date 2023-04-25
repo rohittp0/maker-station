@@ -49,6 +49,7 @@ function onScanSuccess(decodedText, decodedResult) {
         resultContainer.innerHTML = `<p>Scanned <b>${count}</b> participants!</p>`;
 
         handleQr(decodedText).catch(console.error);
+        navigator.vibrate(200);
     }
 }
 
