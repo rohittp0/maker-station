@@ -51,3 +51,5 @@ Would you like to fill a feedback form?`;
 }
 
 addButton().catch(console.error);
+
+document.getElementById("logout").addEventListener("click", () => auth.signOut());
