@@ -35,7 +35,7 @@ service cloud.firestore {
       	allow read: if request.auth.token.admin || request.auth.uid == user;
         allow write: if request.auth.uid == user &&
         	validUserData(request.auth.uid, request.auth.token, request.resource.data) &&
-        	notEditingFields(["visited"]);
+        	notEditingFields(["visited", "emailSent"]);
 
         allow update: if request.auth.token.mentor && editingOnlyAllowedFields(["visited"]);
 

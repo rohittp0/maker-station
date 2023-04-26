@@ -1,6 +1,5 @@
 const admin = require('firebase-admin');
 const functions = require('firebase-functions');
-const {learning} = require("./utils");
 
 admin.initializeApp();
 const firestore = admin.firestore();
@@ -15,7 +14,9 @@ exports.newUser = functions.auth.user().onCreate(async (user) => {
     const mentors = list.data().mentors;
 
     if (!mentors || !mentors.includes(user.email))
-        return console.log("User not a mentor", user.email);
+        return firestore.collection("users").doc(user.uid).set({
+            emailSent: false
+        }, {merge: true});
 
     await firestore.collection("mentors").doc(user.uid).set({
         email: user.email,
@@ -26,32 +27,39 @@ exports.newUser = functions.auth.user().onCreate(async (user) => {
     return auth.setCustomUserClaims(user.uid, {mentor: true});
 });
 
-firestore.collection("users")
-    .where("emailSent", "==", false)
-    .where("visited", ">", 5)
-    .onSnapshot((snapshot) => {
-        snapshot.docs.forEach((doc) => {
-            const {name, email} = doc.data();
+exports.sendMail = functions.https.onRequest(async (req, resp) => {
 
-            const batch = firestore.batch();
+    const users = await firestore.collection("users")
+        // .where("emailSent", "!=", true)
+        .where("visited", ">", 5)
+        .get();
 
-            batch.create(firestore.collection("mail").doc(), {
-                to: [email],
-                template: {
-                    name: "finish",
-                    data: {
-                        name,
-                    },
+    resp.write(`Found ${users.size} users`)
+
+    users.forEach((user) => {
+        const {name, email} = user.data();
+
+        const batch = firestore.batch();
+
+        batch.create(firestore.collection("mail").doc(), {
+            to: [email],
+            template: {
+                name: "finish",
+                data: {
+                    name,
                 },
-            });
-
-            batch.update(doc.ref, {
-                emailSent: true
-            });
-
-            return batch.commit();
+            },
         });
+
+        batch.update(user.ref, {
+            emailSent: true
+        });
+
+        return batch.commit();
     });
+
+    resp.end();
+});
 
 async function addStalls() {
     const {learning, project} = require("./utils");
@@ -125,3 +133,4 @@ async function addMentors() {
 
 // addMentors().then(() => console.log("Mentors updated"));
 
+// auth.setCustomUserClaims("QpCM5SREDxZqa6BzYq5mclsP6ei1", {mentor: true, admin: true});
