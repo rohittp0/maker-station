@@ -27,16 +27,17 @@ exports.newUser = functions.auth.user().onCreate(async (user) => {
     return auth.setCustomUserClaims(user.uid, {mentor: true});
 });
 
-exports.sendMail = functions.https.onRequest(async (req, resp) => {
+exports.sendMail = functions.pubsub.schedule("*/10 * * * *").onRun(async (context) => {
 
     const users = await firestore.collection("users")
-        // .where("emailSent", "!=", true)
+        .where("emailSent", "==", false)
         .where("visited", ">", 5)
         .get();
 
-    resp.write(`Found ${users.size} users`)
+    if(users.empty)
+        return;
 
-    users.forEach((user) => {
+    const writes = users.docs.map((user) => {
         const {name, email} = user.data();
 
         const batch = firestore.batch();
@@ -58,7 +59,7 @@ exports.sendMail = functions.https.onRequest(async (req, resp) => {
         return batch.commit();
     });
 
-    resp.end();
+    return Promise.all(writes);
 });
 
 async function addStalls() {
