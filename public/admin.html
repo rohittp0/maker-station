@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Maker Stations</title>
+
+  <link rel="stylesheet" href="/css/mentor.css">
+
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/9.20.0/firebase-app-compat.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/9.20.0/firebase-auth-compat.js"></script>
+  <script defer src="/__/firebase/9.20.0/firebase-firestore-compat.js"></script>
+  <!-- Initialize firebase -->
+  <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script defer src="/js/utils.js"></script>
+  <script defer src="/js/admin.js"></script>
+
+</head>
+<body class="dark:bg-black">
+
+<div class="relative overflow-x-auto">
+  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <tr>
+      <th scope="col" class="px-6 py-3">
+        Venue
+      </th>
+      <th scope="col" class="px-6 py-3">
+        Visitors
+      </th>
+      <th scope="col" class="px-6 py-3">
+        Time Spent
+      </th>
+      <th scope="col" class="px-6 py-3">
+
+      </th>
+    </tr>
+    </thead>
+    <tbody id="tableBody">
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

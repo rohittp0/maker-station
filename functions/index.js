@@ -105,11 +105,23 @@ async function addMentor(email) {
         photo: user.photoURL
     });
 
+    await firestore.collection("users").doc(user.uid).delete();
+
     return auth.setCustomUserClaims(user.uid, {mentor: true});
 }
 
-// addMentor("tprohit9@gmail.com")
+async function addMentors() {
+    const {mentors} = require("./utils");
+
+    return firestore.doc("mentors/mentor_list").set({
+        mentors
+    });
+}
+
+// addMentor("rohitrajesh5080@gmail.com").then(() => functions.logger.log("Mentor added"));
 
 // addStalls();
 // addVenues();
+
+// addMentors().then(() => console.log("Mentors updated"));
 
