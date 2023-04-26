@@ -37,19 +37,9 @@ function getRow(venue, visitors, time) {
 function getData() {
     db.collection("users").onSnapshot((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-            const venue = doc.data().venue;
-
-            if(!(venue in data))
-                data[venue] = {
-                    visitors: 0,
-                    time: 0
-                }
-
-            data[venue].visitors += 1;
-            data[venue].time += doc.data().visited || 0;
+            data[doc.id] = {venue: doc.data().venue, visited: doc.data().visited};
+            updateTable();
         });
-
-        updateTable();
     });
 }
 
@@ -57,23 +47,30 @@ function updateTable() {
     let totalVisitors = 0;
     let totalTime = 0;
 
-    table.innerHTML = Object.keys(data).map((venue) => {
-        totalVisitors += data[venue].visitors;
-        totalTime += data[venue].time;
+    const tableData = {};
 
-        return getRow(venue, data[venue].visitors, data[venue].time);
+    Object.keys(data).forEach((user) => {
+        user = data[user];
+        if (!(user.venue in tableData))
+            tableData[user.venue] = {
+                visitors: 0,
+                time: 0
+            };
+
+        tableData[user.venue].visitors += 1;
+        tableData[user.venue].time += user.visited || 0;
+    });
+
+    table.innerHTML = Object.keys(tableData).map((venue) => {
+        totalVisitors += tableData[venue].visitors;
+        totalTime += tableData[venue].time;
+
+        return getRow(venue, tableData[venue].visitors, tableData[venue].time);
     })
         .join();
 
     table.innerHTML += getRow("Total", totalVisitors, totalTime);
 }
-
-venues.forEach((venue) => {
-   data[venue] = {
-       visitors: 0,
-       time: 0
-   }
-});
 
 updateTable();
 getData();
