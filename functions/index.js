@@ -14,9 +14,15 @@ exports.newUser = functions.auth.user().onCreate(async (user) => {
     const mentors = list.data().mentors;
 
     if (!mentors || !mentors.includes(user.email))
-        return firestore.collection("users").doc(user.uid).set({
-            emailSent: false
-        }, {merge: true});
+        return firestore.collection("mail").doc().create({
+            to: [user.email],
+            template: {
+                name: "finish",
+                data: {
+                    name: user.displayName,
+                },
+            },
+        })
 
     await firestore.collection("mentors").doc(user.uid).set({
         email: user.email,
@@ -25,41 +31,6 @@ exports.newUser = functions.auth.user().onCreate(async (user) => {
     });
 
     return auth.setCustomUserClaims(user.uid, {mentor: true});
-});
-
-exports.sendMail = functions.pubsub.schedule("*/10 * * * *").onRun(async (context) => {
-
-    const users = await firestore.collection("users")
-        .where("emailSent", "==", false)
-        .where("visited", ">", 5)
-        .get();
-
-    if(users.empty)
-        return;
-
-    const writes = users.docs.map((user) => {
-        const {name, email} = user.data();
-
-        const batch = firestore.batch();
-
-        batch.create(firestore.collection("mail").doc(), {
-            to: [email],
-            template: {
-                name: "finish",
-                data: {
-                    name,
-                },
-            },
-        });
-
-        batch.update(user.ref, {
-            emailSent: true
-        });
-
-        return batch.commit();
-    });
-
-    return Promise.all(writes);
 });
 
 async function addStalls() {
@@ -132,6 +103,6 @@ async function addMentors() {
 // addStalls();
 // addVenues();
 
-// addMentors().then(() => console.log("Mentors updated"));
+addMentors().then(() => console.log("Mentors updated"));
 
 // auth.setCustomUserClaims("QpCM5SREDxZqa6BzYq5mclsP6ei1", {mentor: true, admin: true});
